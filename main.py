@@ -1,6 +1,4 @@
 from core.server import Server
 
-screen = Server()
-apps = screen.manager.installed
-for app in apps:
-    print(app.developer.id)
+server = Server()
+server.manager.install('me_breitburg_slideshow')

@@ -1,19 +1,50 @@
-# Color
+# Brush
 
-Программная среда для выполнения и управления пакетами Colorboard.
+Software environment for executing and configuring packages.
 
-## Структура
+## Structure
 
-В основе проекта есть два основных модуля: `packages` и `core`:
+In root of the project it has two submodules.
 
-- `core` – основные имплементации классов для реализации компонентов 
-- `packages` – директория где находятся сами пакеты
+- `core` – basic classes and functions implementations 
+- `packages` – directory that contains packages itself
 
-### Manager
+## Package
 
-Менеджер пакетов реализует удаление и установку пакетов из репозитория. В корне репозитория должен находится файл `packages.json` содержащий описание пакетов в виде JSON. Именно из этого файла менеджер получает информацию о имеющихся пакетах.
+Well, package is a ZIP archive, that contains `__init__.py` file and the `manifest.json` file. Also package can contain required libraries or code can be splitted in the files. Initialization file needs to contain two methods:
 
-Алгоритм установки пакета из репозитория:
+### Initialization file
 
-1. Скачать и распаковать архив с кодом этого пакета
-2. Прочитать данные из `packages.json` об этом пакете и записать их
+That file needs to be named `__init__.py`. In that file you can call other libraries that can required.
+
+- `setup` - method that will be called at the start of application
+- `loop` - that method will be called at every frame
+
+### Manifest
+
+That files contains package information in the JSON format. It has primary keys:
+
+- `title` : `string` - title of the package that will be displayed in menu
+- `description` : `string` - short description of the package
+- `package` : `string` – identifier of the package
+- `developer` : `dict` - developer information
+- `version` : `string` - version of the package
+- `icon` : `string` - image 16x16 that encoded in `base64`
+
+Example of manifest file:
+
+```json
+{
+  "title": "Example",
+  "description": "This is example",
+  "package": "com_example_example",
+  "developer": {
+    "name": "Example",
+    "id": 1,
+    "email": "example@example.com",
+    "website": "https://example.com"
+  },
+  "version": "1.0.0",
+  "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAW0lEQVQ4jWNkYGD4z0ABYKJEMwiwwBj//xPnEEZGRuwGgEDYjJd4Na/KEMcQI9kLaWlpYEy2AbdZzChzAToYNQAtHWCLZ3Sg+ucUigjFLoBnJnKT8gDnRgYGBgD8yhKu0Tq+5gAAAABJRU5ErkJggg=="
+}
+```
