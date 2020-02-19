@@ -16,7 +16,7 @@ class Package:
     def __init__(self, json):
         self.title = json['title']
         self.description = json['description']
-        self.package = json['package']
+        self.identifier = json['identifier']
         self.version = json['version']
         self.icon = json['icon']
         self.raw = json
@@ -27,7 +27,7 @@ class Package:
     @property
     def instance(self):
         if not self.__instance: self.__instance = import_module(
-            'packages.' + self.package)
+            'packages.' + self.identifier)
         return self.__instance
 
     def run(self, threaded=True):

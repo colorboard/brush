@@ -12,7 +12,7 @@ class Screen:
     def open(identifier):
         if manager.running_package:
             manager.running_package.stop()
-        manager.running_package = [details for details in manager.installed if details.package == identifier][0]
+        manager.running_package = [details for details in manager.installed if details.identifier == identifier][0]
         manager.running_package.run(threaded=True)
         return dict(status=1, message='Application is started.')
 
@@ -35,4 +35,4 @@ class Screen:
         return dict(status=result.status, message=result.message)
 
     def start(self):
-        app.run(debug=True, port=5000)
+        app.run(debug=True, port=5000, host='192.168.1.25')

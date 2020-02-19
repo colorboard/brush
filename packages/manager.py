@@ -58,11 +58,11 @@ class Manager:
         :return: Result – Result of installation
         """
 
-        if package in [package.package for package in self.installed]:
+        if package in [package.identifier for package in self.installed]:
             return Result(0, 'Package already installed.')
 
         try:
-            details = [details for details in self.repository.packages if details.package == package][0]
+            details = [details for details in self.repository.packages if details.identifier == package][0]
             url = self.repository.download_url(package)
             binary = urlretrieve(url)[0]
 
@@ -70,7 +70,7 @@ class Manager:
         except Exception as exception:
             return Result(2, f'Exception occurred: {exception}')
 
-        return Result(1, f'Package {details.package} at version {details.version} installed successfully.')
+        return Result(1, f'Package {details.identifier} at version {details.version} installed successfully.')
 
     def delete(self, package):
         """Method that deletes installed package
@@ -78,7 +78,7 @@ class Manager:
         :param package: str – Package identifier
         :return: Result – Result of deletion
         """
-        if package not in [package.package for package in self.installed]:
+        if package not in [package.identifier for package in self.installed]:
             return Result(0, 'Package not installed.')
 
         rmtree(join('packages', package))

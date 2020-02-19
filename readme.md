@@ -6,7 +6,7 @@ Software environment for executing and configuring packages.
 
 In root of the project it has two submodules.
 
-- `core` – basic classes and functions implementations 
+- `core` – basic classes and functions implementations
 - `packages` – directory that contains packages itself
 
 ## Package
@@ -26,7 +26,7 @@ That files contains package information in the JSON format. It has primary keys:
 
 - `title` : `string` - title of the package that will be displayed in menu
 - `description` : `string` - short description of the package
-- `package` : `string` – identifier of the package
+- `identifier` : `string` – identifier of the package
 - `developer` : `dict` - developer information
 - `version` : `string` - version of the package
 - `icon` : `string` - image 16x16 that encoded in `base64`
@@ -37,7 +37,7 @@ Example of manifest file:
 {
   "title": "Example",
   "description": "This is example",
-  "package": "com_example_example",
+  "identifier": "com_example_example",
   "developer": {
     "name": "Example",
     "id": 1,
