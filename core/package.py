@@ -19,7 +19,8 @@ class Package:
         self.package = json['package']
         self.version = json['version']
         self.icon = json['icon']
-        self.running = self.__instance = False
+        self.raw = json
+        self.__running = self.__instance = False
 
         self.developer = DictClass(dict=json['developer'])
 
@@ -30,18 +31,18 @@ class Package:
         return self.__instance
 
     def run(self, threaded=True):
-        self.running = True
+        self.__running = True
 
         if threaded:
             Thread(target=self.run, args=(False,)).start()
             return
 
         self.instance.setup()
-        while self.running:
+        while self.__running:
             self.instance.frame()
 
     def stop(self):
-        self.running = False
+        self.__running = False
 
     def __str__(self):
         return f'{self.title} ({self.version})'

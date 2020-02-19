@@ -1,4 +1,4 @@
-from core.server import Server
+from core.server import Screen
 
-server = Server()
-server.manager.install('me_breitburg_slideshow')
+screen = Screen()
+screen.start()
