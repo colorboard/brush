@@ -31,8 +31,14 @@ class Screen:
 
     @app.route('/packages/delete/<string:identifier>')
     def delete_package(identifier):
+        if manager.running_package:
+            manager.running_package.stop()
         result = manager.delete(identifier)
         return dict(status=result.status, message=result.message)
+
+    @app.route('/packages/running')
+    def running_package():
+        return manager.running_package.identifier if manager.running_package else ''
 
     def start(self):
         app.run(debug=True, port=5000, host='192.168.1.25')
